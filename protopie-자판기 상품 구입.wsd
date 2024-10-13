@@ -1,0 +1,30 @@
+@startuml 자판기 상품 구매
+start
+partition **자판기 상품 구매** {
+  :상품 구매 시도;
+  if (선택한 상품이 있는가?) then (상품 재고 조회)
+    if (상품의 재고가 1개 이상인가?) then (결제 지불 수단 조회)
+      if (결제 수단이 카드인가?) then (카드로 결제)
+        :상품 구매;
+        stop
+      else (투입한 현금 권종 조회)
+        if (투입한 금액이 상품 값 보다 크거나 같은가?) then (상품 값을 제외한 잔돈 반환 계산)
+          if (잔액을 남겨줄 만큼 충분한 권종의 잔돈이 남아있는가?) then (상품 구매)
+            :상품 구매;
+            :잔액 반환;
+            stop
+          else (상품 구매 실패)
+            end
+          endif
+        else (상품 구매 실패)
+          end
+        endif
+      endif
+    else (상품 구매 실패)
+      end
+    endif
+  else (상품 구매 실패)
+    end
+  endif
+}
+@enduml
